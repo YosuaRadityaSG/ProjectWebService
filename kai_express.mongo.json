@@ -1,0 +1,158 @@
+{
+  "users": [
+    {
+      "_id": 1,
+      "name": "Admin KAI",
+      "email": "admin@kai.id",
+      "password": "$2b$10$dummyHashAdmin123",
+      "role": "admin",
+      "avatar_url": null,
+      "created_at": { "$date": "2026-06-15T09:57:00Z" }
+    },
+    {
+      "_id": 2,
+      "name": "Budi Santoso",
+      "email": "budi@gmail.com",
+      "password": "$2b$10$dummyHashBudi123",
+      "role": "customer",
+      "avatar_url": null,
+      "created_at": { "$date": "2026-06-15T09:57:00Z" }
+    },
+    {
+      "_id": 3,
+      "name": "Siti Aminah",
+      "email": "siti@yahoo.com",
+      "password": "$2b$10$dummyHashSiti123",
+      "role": "customer",
+      "avatar_url": null,
+      "created_at": { "$date": "2026-06-15T09:57:00Z" }
+    }
+  ],
+  "stations": [
+    {
+      "_id": 1,
+      "code": "GMR",
+      "name": "Gambir",
+      "city": "Jakarta",
+      "created_at": { "$date": "2026-06-15T09:57:00Z" }
+    },
+    {
+      "_id": 2,
+      "code": "SGU",
+      "name": "Surabaya Gubeng",
+      "city": "Surabaya",
+      "created_at": { "$date": "2026-06-15T09:57:00Z" }
+    },
+    {
+      "_id": 3,
+      "code": "BD",
+      "name": "Bandung",
+      "city": "Bandung",
+      "created_at": { "$date": "2026-06-15T09:57:00Z" }
+    },
+    {
+      "_id": 4,
+      "code": "SMC",
+      "name": "Semarang Poncol",
+      "city": "Semarang",
+      "created_at": { "$date": "2026-06-15T09:57:00Z" }
+    }
+  ],
+  "trains": [
+    {
+      "_id": 1,
+      "name": "Argo Bromo Anggrek",
+      "class": "Eksekutif",
+      "capacity": 400,
+      "created_at": { "$date": "2026-06-15T09:57:00Z" }
+    },
+    {
+      "_id": 2,
+      "name": "Turangga",
+      "class": "Eksekutif",
+      "capacity": 400,
+      "created_at": { "$date": "2026-06-15T09:57:00Z" }
+    },
+    {
+      "_id": 3,
+      "name": "Pasundan",
+      "class": "Ekonomi",
+      "capacity": 600,
+      "created_at": { "$date": "2026-06-15T09:57:00Z" }
+    }
+  ],
+  "schedules": [
+    {
+      "_id": 1,
+      "train_id": 1,
+      "origin_station_id": 1,
+      "destination_station_id": 2,
+      "departure_time": { "$date": "2026-06-20T08:00:00Z" },
+      "arrival_time": { "$date": "2026-06-20T16:30:00Z" },
+      "price": 600000.0
+    },
+    {
+      "_id": 2,
+      "train_id": 2,
+      "origin_station_id": 3,
+      "destination_station_id": 2,
+      "departure_time": { "$date": "2026-06-21T19:00:00Z" },
+      "arrival_time": { "$date": "2026-06-22T05:30:00Z" },
+      "price": 450000.0
+    }
+  ],
+  "bookings": [
+    {
+      "_id": 1,
+      "booking_code": "KAI99X88Y",
+      "user_id": 2,
+      "schedule_id": 1,
+      "total_price": 1200000.0,
+      "status": "paid",
+      "created_at": { "$date": "2026-06-15T09:57:00Z" }
+    },
+    {
+      "_id": 2,
+      "booking_code": "KAI11A22B",
+      "user_id": 3,
+      "schedule_id": 2,
+      "total_price": 450000.0,
+      "status": "unpaid",
+      "created_at": { "$date": "2026-06-15T09:57:00Z" }
+    }
+  ],
+  "payments": [
+    {
+      "_id": 1,
+      "booking_id": 1,
+      "amount": 1200000.0,
+      "payment_method": "Bank Transfer - BCA",
+      "payment_proof_url": "uploads/payments/bukti-budi.jpg",
+      "status": "success",
+      "created_at": { "$date": "2026-06-15T09:57:00Z" }
+    }
+  ],
+  "tickets": [
+    {
+      "_id": 1,
+      "booking_id": 1,
+      "passenger_name": "Budi Santoso",
+      "identity_number": "3578012345670001",
+      "seat_number": "EKS-1-12A"
+    },
+    {
+      "_id": 2,
+      "booking_id": 1,
+      "passenger_name": "Agus Santoso",
+      "identity_number": "3578012345670002",
+      "seat_number": "EKS-1-12B"
+    },
+    {
+      "_id": 3,
+      "booking_id": 2,
+      "passenger_name": "Siti Aminah",
+      "identity_number": "3273012345670001",
+      "seat_number": "EKS-3-05C"
+    }
+  ]
+}
