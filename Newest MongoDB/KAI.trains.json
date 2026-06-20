@@ -1,0 +1,33 @@
+[{
+  "_id": {
+    "$oid": "6a36876804cb62a3af4b104a"
+  },
+  "name": "Argo Bromo Anggrek",
+  "class": "Eksekutif",
+  "capacity": 400,
+  "created_at": {
+    "$date": "2026-06-20T12:28:24.487Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a36876804cb62a3af4b104b"
+  },
+  "name": "Turangga",
+  "class": "Eksekutif",
+  "capacity": 400,
+  "created_at": {
+    "$date": "2026-06-20T12:28:24.487Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a36876804cb62a3af4b104c"
+  },
+  "name": "Pasundan",
+  "class": "Ekonomi",
+  "capacity": 600,
+  "created_at": {
+    "$date": "2026-06-20T12:28:24.487Z"
+  }
+}]

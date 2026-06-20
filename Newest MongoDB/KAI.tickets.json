@@ -1,0 +1,24 @@
+[{
+  "_id": {
+    "$oid": "6a3688ec04cb62a3af4b1050"
+  },
+  "booking_id": {
+    "$oid": "6a36887304cb62a3af4b104e"
+  },
+  "passenger_name": "Budi Santoso",
+  "identity_number": "3578012345670001",
+  "seat_number": "EKS-1-12A",
+  "qr_code": "QR001"
+},
+{
+  "_id": {
+    "$oid": "6a3688ec04cb62a3af4b1051"
+  },
+  "booking_id": {
+    "$oid": "6a36887304cb62a3af4b104e"
+  },
+  "passenger_name": "Agus Santoso",
+  "identity_number": "3578012345670002",
+  "seat_number": "EKS-1-12B",
+  "qr_code": "QR002"
+}]

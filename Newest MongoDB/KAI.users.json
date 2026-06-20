@@ -1,0 +1,39 @@
+[{
+  "_id": {
+    "$oid": "6a3685c104cb62a3af4b1043"
+  },
+  "name": "Admin KAI",
+  "email": "admin@kai.id",
+  "password": "$2b$10$dummyHashAdmin123",
+  "role": "admin",
+  "avatar_url": null,
+  "created_at": {
+    "$date": "2026-06-20T12:21:21.848Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a3685c104cb62a3af4b1044"
+  },
+  "name": "Budi Santoso",
+  "email": "budi@gmail.com",
+  "password": "$2b$10$dummyHashBudi123",
+  "role": "customer",
+  "avatar_url": null,
+  "created_at": {
+    "$date": "2026-06-20T12:21:21.848Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a3685c104cb62a3af4b1045"
+  },
+  "name": "Siti Aminah",
+  "email": "siti@yahoo.com",
+  "password": "$2b$10$dummyHashSiti123",
+  "role": "customer",
+  "avatar_url": null,
+  "created_at": {
+    "$date": "2026-06-20T12:21:21.848Z"
+  }
+}]
