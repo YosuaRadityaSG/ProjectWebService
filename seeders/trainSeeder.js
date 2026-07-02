@@ -1,4 +1,4 @@
-const Train = require("../models/Train");
+const Train = require("../src/models/Train");
 
 const trainData = [
   { name: "Argo Bromo Anggrek", class: "Eksekutif", capacity: 400 },

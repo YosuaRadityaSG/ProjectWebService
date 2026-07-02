@@ -1,4 +1,4 @@
-const Station = require("../models/Station");
+const Station = require("../src/models/Station");
 
 const stationData = [
   { code: "GMR", name: "Gambir", city: "Jakarta" },
