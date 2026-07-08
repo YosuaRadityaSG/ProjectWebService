@@ -1,0 +1,120 @@
+{
+  "info": {
+    "_postman_id": "5f3c2b1f-9e5b-4f7e-bff2-2f1f3f7d7a01",
+    "name": "ProjectWebService API",
+    "description": "Collection untuk endpoint booking, payment upload, dan pembatalan pesanan.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Bookings",
+      "item": [
+        {
+          "name": "POST Create Booking",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": \"66b8f0d01234567890123456\",\n  \"schedule_id\": \"66b8f0d01234567890123457\",\n  \"passengers\": [\n    {\n      \"passenger_name\": \"Budi Santoso\",\n      \"identity_number\": \"1234567890\",\n      \"seat_number\": \"A1\"\n    },\n    {\n      \"passenger_name\": \"Siti Aminah\",\n      \"identity_number\": \"0987654321\",\n      \"seat_number\": \"A2\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/bookings",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "bookings"]
+            },
+            "description": "Membuat 1 booking sekaligus banyak penumpang."
+          }
+        },
+        {
+          "name": "GET Booking Detail by Code",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/bookings/{{bookingCode}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "bookings", "{{bookingCode}}"]
+            },
+            "description": "Melihat detail booking, tiket, QR, dan resi berdasarkan booking code."
+          }
+        },
+        {
+          "name": "DELETE Cancel Booking",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/bookings/{{bookingId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "bookings", "{{bookingId}}"]
+            },
+            "description": "Membatalkan booking/tiket berdasarkan Booking ID MongoDB."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "PUT Upload Payment Proof",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "payment_proof",
+                  "type": "file",
+                  "src": ""
+                },
+                {
+                  "key": "payment_method",
+                  "value": "Bank Transfer",
+                  "type": "text"
+                },
+                {
+                  "key": "amount",
+                  "value": "150000",
+                  "type": "text"
+                },
+                {
+                  "key": "transaction_id",
+                  "value": "TRX202607080001",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/payments/{{bookingId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "payments", "{{bookingId}}"]
+            },
+            "description": "Upload bukti pembayaran menggunakan multipart/form-data. Field file wajib bernama payment_proof."
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "bookingId",
+      "value": "66b8f0d01234567890123458"
+    },
+    {
+      "key": "bookingCode",
+      "value": "KAIABC123"
+    }
+  ]
+}

@@ -3,4 +3,6 @@ module.exports = {
   stationRoutes: require("./stationRoutes"),
   bookingRoutes: require("./bookingRoutes"),
   paymentRoutes: require("./paymentRoutes"),
+  authRoutes: require("./authRoutes"),
+  userRoutes: require("./userRoutes"),
 };
