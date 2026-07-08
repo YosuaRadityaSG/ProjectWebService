@@ -25,6 +25,8 @@ app.use("/api/payments", require("./src/routes/paymentRoutes"));
 // Auth & User management
 app.use("/api/auth", require("./src/routes/authRoutes"));
 app.use("/api/users", require("./src/routes/userRoutes"));
+// schedules
+app.use("/api/schedules", require("./src/routes/scheduleRoutes"));
 
 app.use(notFoundHandler);
 app.use(errorHandler);

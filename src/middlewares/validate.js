@@ -1,6 +1,7 @@
-function validate(schema) {
+function validate(schema, source = "body") {
   return (req, res, next) => {
-    const { error, value } = schema.validate(req.body, {
+    const payload = req[source];
+    const { error, value } = schema.validate(payload, {
       abortEarly: false, // kumpulkan semua error, bukan cuma error pertama
       stripUnknown: true, // buang field yang tidak terdaftar di schema
     });
@@ -14,7 +15,7 @@ function validate(schema) {
       });
     }
 
-    req.body = value; // pakai value yang sudah divalidasi & dibersihkan
+    req[source] = value; // pakai value yang sudah divalidasi & dibersihkan
     next();
   };
 }

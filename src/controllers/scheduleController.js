@@ -13,13 +13,13 @@ const createSchedule = async (req, res, next) => {
 
 const getSchedules = async (req, res, next) => {
   try {
-    const { from, to, date } = req.query;
+    const { dari, tujuan, tanggal } = req.query;
 
     const match = {};
-    if (date) match.date = date;
+    if (tanggal) match.tanggal = tanggal;
 
-    if (from) {
-      const dep = await Station.findOne({ code: from.toUpperCase() });
+    if (dari) {
+      const dep = await Station.findOne({ code: dari.toUpperCase() });
       if (!dep) {
         return res.status(404).json({
           success: false,
@@ -29,47 +29,16 @@ const getSchedules = async (req, res, next) => {
       match.departureStation = dep._id;
     }
 
-    if (to) {
-      const arr = await Station.findOne({ code: to.toUpperCase() });
+    if (tujuan) {
+      const arr = await Station.findOne({ code: tujuan.toUpperCase() });
       if (!arr) {
         return res.status(404).json({
           success: false,
-          message: `Stasiun tujuan dengan kode '${to}' tidak ditemukan.`,
+          message: `Stasiun tujuan dengan kode '${tujuan}' tidak ditemukan.`,
         });
       }
       match.arrivalStation = arr._id;
     }
-
-    // const schedules = await Schedule.aggregate([
-    //   { $match: match },
-    //   {
-    //     $lookup: {
-    //       from: "trains",
-    //       localField: "train",
-    //       foreignField: "_id",
-    //       as: "train",
-    //     },
-    //   },
-    //   { $unwind: "$train" },
-    //   {
-    //     $lookup: {
-    //       from: "stations",
-    //       localField: "departureStation",
-    //       foreignField: "_id",
-    //       as: "departureStation",
-    //     },
-    //   },
-    //   { $unwind: "$departureStation" },
-    //   {
-    //     $lookup: {
-    //       from: "stations",
-    //       localField: "arrivalStation",
-    //       foreignField: "_id",
-    //       as: "arrivalStation",
-    //     },
-    //   },
-    //   { $unwind: "$arrivalStation" },
-    // ]);
 
     // 3. Menggunakan Query Mongoose Biasa + Populate (Lebih bersih & cepat dibanding Aggregation untuk kasus ini)
     const schedules = await Schedule.find(match)
