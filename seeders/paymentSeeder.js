@@ -1,0 +1,26 @@
+const mongoose = require("mongoose");
+
+const paymentData = [
+  {
+    _id: new mongoose.Types.ObjectId("6a3688a504cb62a3af4b104f"),
+    booking_id: new mongoose.Types.ObjectId("6a36887304cb62a3af4b104e"),
+    transaction_id: "TRX20260615001",
+    amount: 1200000,
+    payment_method: "BCA",
+    payment_proof_url: "uploads/payments/bukti-budi.jpg",
+    status: "success",
+    created_at: new Date("2026-06-20T12:33:41.094Z"),
+  },
+];
+
+async function seedPayments() {
+  const collection = mongoose.connection.collection("payments");
+
+  await collection.deleteMany({});
+  await collection.insertMany(paymentData);
+
+  console.log(`${paymentData.length} payments seeded`);
+  return paymentData;
+}
+
+module.exports = seedPayments;
