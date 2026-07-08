@@ -2,7 +2,7 @@ module.exports = {
   trainRoutes: require("./trainRoutes"),
   stationRoutes: require("./stationRoutes"),
   bookingRoutes: require("./bookingRoutes"),
+  scheduleRoutes: require("./scheduleRoutes"),
   paymentRoutes: require("./paymentRoutes"),
-  authRoutes: require("./authRoutes"),
-  userRoutes: require("./userRoutes"),
+  scheduleRoutes: require("./scheduleRoutes"),
 };

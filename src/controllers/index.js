@@ -3,4 +3,5 @@ module.exports = {
   stationController: require("./stationController"),
   bookingController: require("./bookingController"),
   paymentController: require("./paymentController"),
+  scheduleController: require("./scheduleController"),
 };
