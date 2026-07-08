@@ -22,6 +22,9 @@ app.use("/api/stations", require("./src/routes/stationRoutes"));
 app.use("/api/trains", require("./src/routes/trainRoutes"));
 app.use("/api/bookings", require("./src/routes/bookingRoutes"));
 app.use("/api/payments", require("./src/routes/paymentRoutes"));
+// Auth & User management
+app.use("/api/auth", require("./src/routes/authRoutes"));
+app.use("/api/users", require("./src/routes/userRoutes"));
 
 app.use(notFoundHandler);
 app.use(errorHandler);

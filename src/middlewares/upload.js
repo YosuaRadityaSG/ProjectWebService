@@ -23,3 +23,24 @@ const uploadPaymentProof = multer({
 });
 
 module.exports = { uploadPaymentProof };
+
+// Avatar upload (untuk user profile)
+const avatarUploadDir = path.join(process.cwd(), "uploads", "avatars");
+
+const avatarStorage = multer.diskStorage({
+  destination(req, file, cb) {
+    fs.mkdirSync(avatarUploadDir, { recursive: true });
+    cb(null, avatarUploadDir);
+  },
+  filename(req, file, cb) {
+    const ext = path.extname(file.originalname);
+    cb(null, `${Date.now()}-avatar${ext}`);
+  },
+});
+
+const uploadAvatar = multer({
+  storage: avatarStorage,
+  limits: { fileSize: 2 * 1024 * 1024 },
+});
+
+module.exports = { uploadPaymentProof, uploadAvatar };

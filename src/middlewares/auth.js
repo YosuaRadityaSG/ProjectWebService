@@ -18,6 +18,7 @@ function authenticate(req, res, next) {
     req.user = decoded; // { id, role, ... } sesuai payload dari Anggota 1
     next();
   } catch (err) {
+    console.error(err);
     return res.status(401).json({
       success: false,
       message: "Token tidak valid atau sudah kedaluwarsa.",

@@ -1,4 +1,5 @@
 module.exports = {
+  User: require("./User"),
   Train: require("./Train"),
   Station: require("./Station"),
   Schedule: require("./Schedule"),
