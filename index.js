@@ -20,6 +20,8 @@ app.use("/uploads", express.static("uploads"));
 // Anggota 2 — Master Data (sudah aktif)
 app.use("/api/stations", require("./src/routes/stationRoutes"));
 app.use("/api/trains", require("./src/routes/trainRoutes"));
+app.use("/api/bookings", require("./src/routes/bookingRoutes"));
+app.use("/api/payments", require("./src/routes/paymentRoutes"));
 
 app.use(notFoundHandler);
 app.use(errorHandler);
