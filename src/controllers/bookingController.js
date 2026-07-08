@@ -4,6 +4,10 @@ const Booking = require("../models/Booking");
 const Ticket = require("../models/Ticket");
 const Schedule = require("../models/Schedule");
 
+// --- TAMBAHAN GOOGLE CALENDAR ---
+const { createTrainScheduleEvent } = require("../utils/googleCalendar");
+// --------------------------------
+
 function generateBookingCode() {
   return `KAI${crypto.randomBytes(3).toString("hex").toUpperCase()}`;
 }
@@ -26,7 +30,14 @@ async function createBooking(req, res, next) {
       });
     }
 
-    const schedule = await Schedule.findById(schedule_id);
+    // const schedule = await Schedule.findById(schedule_id);
+    // --- MODIFIKASI GOOGLE CALENDAR ---
+    // Tambahkan populate agar nama kereta & stasiun terbawa ke Google Calendar
+    const schedule = await Schedule.findById(schedule_id)
+      .populate("train_id")
+      .populate("origin_station_id")
+      .populate("destination_station_id");
+    // ----------------------------------
     if (!schedule) {
       return res.status(404).json({
         success: false,
@@ -78,12 +89,27 @@ async function createBooking(req, res, next) {
       await schedule.save();
     }
 
+    // --- TAMBAHAN GOOGLE CALENDAR ---
+    let calendarLink = null;
+    try {
+      // Kita coba masukkan ke kalender. Kalau user belum menautkan Google,
+      // error-nya ditangkap di catch dan diabaikan, agar booking tiket tetap sukses.
+      calendarLink = await createTrainScheduleEvent(bookingUserId, schedule);
+    } catch (calendarError) {
+      console.log(
+        "Info: User belum tautkan akun atau gagal buat kalender:",
+        calendarError.message,
+      );
+    }
+    // --------------------------------
+
     return res.status(201).json({
       success: true,
       message: "Booking berhasil dibuat",
       data: {
         booking,
         tickets,
+        calendar_link: calendarLink, // Akan bernilai URL kalender atau null
       },
     });
   } catch (err) {

@@ -13,6 +13,11 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true },
     role: { type: String, enum: ["user", "admin"], default: "user" },
     avatar: { type: String },
+    // Tambahkan di dalam file models/User.js kamu
+    google_refresh_token: {
+      type: String,
+      default: null, // Default null karena tidak semua user mau menghubungkan kalender
+    },
   },
   { timestamps: true },
 );

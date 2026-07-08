@@ -2,16 +2,18 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
+// --- TAMBAHAN GOOGLE CALENDAR ---
+const { getAuthUrl } = require("../utils/googleCalendar");
+// --------------------------------
+
 async function register(req, res) {
   try {
     const { name, email, password } = req.body;
     if (!name || !email || !password) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: "Nama, email, dan password dibutuhkan.",
-        });
+      return res.status(400).json({
+        success: false,
+        message: "Nama, email, dan password dibutuhkan.",
+      });
     }
 
     const existing = await User.findOne({ email });
@@ -25,12 +27,10 @@ async function register(req, res) {
     const user = new User({ name, email, password: hashed });
     await user.save();
 
-    return res
-      .status(201)
-      .json({
-        success: true,
-        data: { id: user._id, name: user.name, email: user.email },
-      });
+    return res.status(201).json({
+      success: true,
+      data: { id: user._id, name: user.name, email: user.email },
+    });
   } catch (err) {
     console.error(err);
     return res
@@ -64,10 +64,16 @@ async function login(req, res) {
       expiresIn: "30m",
     });
 
+    // --- TAMBAHAN GOOGLE CALENDAR ---
+    // Generate URL Login Google untuk user yang sedang login
+    const googleAuthUrl = getAuthUrl(user._id);
+    // --------------------------------
+
     return res.json({
       success: true,
       data: {
         token,
+        google_auth_url: googleAuthUrl, // <-- Akan muncul di Postman
         user: {
           id: user._id,
           name: user.name,

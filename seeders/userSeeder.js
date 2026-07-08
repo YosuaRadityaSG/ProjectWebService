@@ -9,6 +9,7 @@ const rawUsers = [
     password: "admin123",
     role: "admin",
     avatar: null,
+    google_refresh_token: null,
     created_at: new Date("2026-06-20T12:21:21.848Z"),
   },
   {
@@ -18,6 +19,7 @@ const rawUsers = [
     password: "budi123",
     role: "user",
     avatar: null,
+    google_refresh_token: null,
     created_at: new Date("2026-06-20T12:21:21.848Z"),
   },
   {
@@ -27,6 +29,7 @@ const rawUsers = [
     password: "siti123",
     role: "user",
     avatar: null,
+    google_refresh_token: null,
     created_at: new Date("2026-06-20T12:21:21.848Z"),
   },
 ];
