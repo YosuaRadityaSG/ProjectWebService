@@ -56,7 +56,7 @@ async function uploadPaymentProof(req, res, next) {
       payment_proof_url: `uploads/payments/${req.file.filename}`,
       status: "success",
     };
-
+    console.log("Payment Data:", paymentData); // Debugging line
     const payment = await Payment.findOneAndUpdate(
       { booking_id: booking._id },
       paymentData,
