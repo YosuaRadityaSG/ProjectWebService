@@ -84,11 +84,6 @@
                   "key": "amount",
                   "value": "150000",
                   "type": "text"
-                },
-                {
-                  "key": "transaction_id",
-                  "value": "TRX202607080001",
-                  "type": "text"
                 }
               ]
             },

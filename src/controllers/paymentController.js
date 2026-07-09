@@ -1,5 +1,13 @@
+const crypto = require("crypto");
 const Booking = require("../models/Booking");
 const Payment = require("../models/Payment");
+
+function generateTransactionId() {
+  return `TRX${Date.now().toString().slice(-10)}${crypto
+    .randomBytes(2)
+    .toString("hex")
+    .toUpperCase()}`;
+}
 
 // PUT /api/payments/:booking_id
 // Upload bukti pembayaran memakai Multer dan Payment model
@@ -40,17 +48,18 @@ async function uploadPaymentProof(req, res, next) {
       });
     }
 
+    const paymentData = {
+      booking_id: booking._id,
+      transaction_id: generateTransactionId(),
+      amount,
+      payment_method: paymentMethod,
+      payment_proof_url: `uploads/payments/${req.file.filename}`,
+      status: "success",
+    };
+
     const payment = await Payment.findOneAndUpdate(
       { booking_id: booking._id },
-      {
-        booking_id: booking._id,
-        transaction_id:
-          req.body.transaction_id || `TRX${Date.now().toString().slice(-10)}`,
-        amount,
-        payment_method: paymentMethod,
-        payment_proof_url: `uploads/payments/${req.file.filename}`,
-        status: "success",
-      },
+      paymentData,
       {
         new: true,
         upsert: true,
