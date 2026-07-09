@@ -3,8 +3,44 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 // --- TAMBAHAN GOOGLE CALENDAR ---
-const { getAuthUrl } = require("../utils/googleCalendar");
+// const { getAuthUrl } = require("../utils/googleCalendar");
 // --------------------------------
+
+// Tambahkan import saveTokenToUser di bagian paling atas file authController.js
+const { getAuthUrl, saveTokenToUser } = require("../utils/googleCalendar");
+
+// ... kode register dan login yang kemarin tetap sama ...
+
+// --- TAMBAHAN FUNGSI UNTUK MENANGKAP CALLBACK GOOGLE ---
+async function googleCallback(req, res) {
+  try {
+    const { code, state } = req.query; // Google mengirimkan 'code' dan 'state' (ID User)
+
+    if (!code) {
+      return res.status(400).json({
+        success: false,
+        message: "Authorization code tidak ditemukan",
+      });
+    }
+
+    // Tukar kode menjadi token dan simpan otomatis ke DB User berdasarkan ID dari 'state'
+    await saveTokenToUser(code, state);
+
+    return res.json({
+      success: true,
+      message:
+        "Akun Google Calendar berhasil ditautkan! Kolom google_refresh_token di DB Anda sekarang sudah terisi. Kamu bisa lanjut ke step POST booking tiket.",
+    });
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .json({ success: false, message: "Gagal memproses token Google." });
+  }
+}
+
+// Jangan lupa dieksport di bagian paling bawah
+module.exports = { register, login, googleCallback };
 
 async function register(req, res) {
   try {
@@ -53,11 +89,17 @@ async function login(req, res) {
         .status(401)
         .json({ success: false, message: "Email atau password salah." });
 
-    const match = await bcrypt.compare(password, user.password);
-    if (!match)
-      return res
-        .status(401)
-        .json({ success: false, message: "Email atau password salah." });
+    // const match = await bcrypt.compare(password, user.password);
+    // if (!match)
+    //   return res
+    //     .status(401)
+    //     .json({ success: false, message: "Email atau password salah." });
+    if (password !== user.password) {
+      return res.status(401).json({
+        success: false,
+        message: "Email atau password salah.",
+      });
+    }
 
     const payload = { id: user._id, role: user.role, email: user.email };
     const token = jwt.sign(payload, process.env.JWT_SECRET || "secretkey", {
@@ -89,4 +131,4 @@ async function login(req, res) {
   }
 }
 
-module.exports = { register, login };
+module.exports = { register, login, googleCallback };

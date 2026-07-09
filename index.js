@@ -33,7 +33,7 @@ app.use(errorHandler);
 
 app.get("/", (req, res) => res.send("jalan bang"));
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3007;
 app.listen(PORT, () => {
   console.log(` Server berjalan di http://localhost:${PORT}`);
 });
