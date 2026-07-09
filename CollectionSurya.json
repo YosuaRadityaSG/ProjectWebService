@@ -1,0 +1,149 @@
+{
+  "info": {
+    "_postman_id": "d3f4d6f4-6f8d-4c45-8d7c-bf4dfc3f1f20",
+    "name": "CollectionSurya - Schedules",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Postman collection khusus endpoint schedule. Gunakan baseUrl dan token saat login admin."
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3007/api"
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "schedule_id",
+      "value": ""
+    },
+    {
+      "key": "train_id",
+      "value": ""
+    },
+    {
+      "key": "origin_station_id",
+      "value": ""
+    },
+    {
+      "key": "destination_station_id",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Schedules",
+      "item": [
+        {
+          "name": "Get Schedules",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/schedules",
+              "host": ["{{baseUrl}}"],
+              "path": ["schedules"]
+            },
+            "description": "Ambil semua schedule. Query opsional: dari, tujuan, tanggal."
+          }
+        },
+        {
+          "name": "Get Schedules by Query",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/schedules?dari=JKT&tujuan=SBY&tanggal=2026-06-20",
+              "host": ["{{baseUrl}}"],
+              "path": ["schedules"],
+              "query": [
+                {
+                  "key": "dari",
+                  "value": "JKT"
+                },
+                {
+                  "key": "tujuan",
+                  "value": "SBY"
+                },
+                {
+                  "key": "tanggal",
+                  "value": "2026-06-20"
+                }
+              ]
+            },
+            "description": "Ambil schedule dengan filter query."
+          }
+        },
+        {
+          "name": "Create Schedule",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"train_id\": \"{{train_id}}\",\n  \"origin_station_id\": \"{{origin_station_id}}\",\n  \"destination_station_id\": \"{{destination_station_id}}\",\n  \"departure_time\": \"2026-06-20T08:00:00.000Z\",\n  \"arrival_time\": \"2026-06-20T16:30:00.000Z\",\n  \"price\": 600000,\n  \"available_seats\": 400\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/schedules",
+              "host": ["{{baseUrl}}"],
+              "path": ["schedules"]
+            },
+            "description": "Buat schedule baru."
+          }
+        },
+        {
+          "name": "Update Schedule",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"price\": 650000,\n  \"available_seats\": 380\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/schedules/{{schedule_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["schedules", "{{schedule_id}}"]
+            },
+            "description": "Update schedule berdasarkan ID."
+          }
+        },
+        {
+          "name": "Delete Schedule",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/schedules/{{schedule_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["schedules", "{{schedule_id}}"]
+            },
+            "description": "Hapus schedule berdasarkan ID."
+          }
+        }
+      ]
+    }
+  ]
+}

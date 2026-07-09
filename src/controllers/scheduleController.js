@@ -1,4 +1,5 @@
 const Schedule = require("../models/Schedule");
+const Station = require("../models/Station");
 
 const createSchedule = async (req, res, next) => {
   try {
@@ -16,17 +17,30 @@ const getSchedules = async (req, res, next) => {
     const { dari, tujuan, tanggal } = req.query;
 
     const match = {};
-    if (tanggal) match.tanggal = tanggal;
+    // 1. Perbaikan Filter Tanggal (Mencari rentang waktu 1 hari penuh)
+    if (tanggal) {
+      const startOfDay = new Date(tanggal);
+      startOfDay.setUTCHours(0, 0, 0, 0);
+
+      const endOfDay = new Date(tanggal);
+      endOfDay.setUTCHours(23, 59, 59, 999);
+
+      // Mencari keberangkatan di antara awal hari dan akhir hari tersebut
+      match.departure_time = {
+        $gte: startOfDay,
+        $lte: endOfDay,
+      };
+    }
 
     if (dari) {
       const dep = await Station.findOne({ code: dari.toUpperCase() });
       if (!dep) {
         return res.status(404).json({
           success: false,
-          message: `Stasiun asal dengan kode '${from}' tidak ditemukan.`,
+          message: `Stasiun asal dengan kode '${dari}' tidak ditemukan.`,
         });
       }
-      match.departureStation = dep._id;
+      match.origin_station_id = dep._id;
     }
 
     if (tujuan) {
@@ -37,14 +51,14 @@ const getSchedules = async (req, res, next) => {
           message: `Stasiun tujuan dengan kode '${tujuan}' tidak ditemukan.`,
         });
       }
-      match.arrivalStation = arr._id;
+      match.destination_station_id = arr._id;
     }
 
     // 3. Menggunakan Query Mongoose Biasa + Populate (Lebih bersih & cepat dibanding Aggregation untuk kasus ini)
     const schedules = await Schedule.find(match)
-      .populate("train")
-      .populate("departureStation")
-      .populate("arrivalStation");
+      .populate("train_id")
+      .populate("origin_station_id")
+      .populate("destination_station_id");
 
     return res.json({
       success: true,
